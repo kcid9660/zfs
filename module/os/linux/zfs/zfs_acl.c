@@ -1640,6 +1640,50 @@ zfs_acl_chmod_setattr(znode_t *zp, zfs_acl_t **aclp, uint64_t mode)
 }
 
 /*
+ * Returns B_TRUE if zp's ACL is the one zfs_acl_ids_create() gives a new
+ * file of zp's mode in a directory without inheritable ACEs, entry for
+ * entry, and its ACL-wide pflags are those of such a file.  Only then does
+ * creating the file again from its mode, as replay of a TX_TMPFILE record
+ * does, reproduce the ACL.  ZFS_ACL_TRIVIAL alone does not say so:
+ * ace_trivial_common() accepts inherited owner@, group@ and everyone@
+ * entries whose masks and ACE_INHERITED_ACE flags differ from what
+ * zfs_acl_chmod() builds.
+ */
+boolean_t
+zfs_acl_is_from_mode(znode_t *zp)
+{
+	zfs_acl_t *aclp, *canon;
+	void *acep = NULL, *cacep = NULL;
+	uint64_t who, cwho;
+	uint32_t mask, cmask;
+	uint16_t iflags, ciflags, type, ctype;
+	boolean_t same;
+
+	if ((zp->z_pflags & ZFS_ACL_WIDE_FLAGS) != ZFS_ACL_TRIVIAL)
+		return (B_FALSE);
+
+	mutex_enter(&zp->z_acl_lock);
+	if (zfs_acl_node_read(zp, B_FALSE, &aclp, B_FALSE) != 0) {
+		mutex_exit(&zp->z_acl_lock);
+		return (B_FALSE);
+	}
+	canon = zfs_acl_alloc(aclp->z_version);
+	zfs_acl_chmod(S_ISDIR(ZTOI(zp)->i_mode), zp->z_mode, B_FALSE, B_FALSE,
+	    canon);
+	same = aclp->z_acl_count == canon->z_acl_count;
+	while (same && (acep = zfs_acl_next_ace(aclp, acep, &who, &mask,
+	    &iflags, &type)) != NULL) {
+		cacep = zfs_acl_next_ace(canon, cacep, &cwho, &cmask, &ciflags,
+		    &ctype);
+		same = cacep != NULL && who == cwho && mask == cmask &&
+		    iflags == ciflags && type == ctype;
+	}
+	zfs_acl_free(canon);
+	mutex_exit(&zp->z_acl_lock);
+	return (same);
+}
+
+/*
  * Should ACE be inherited?
  */
 static int
