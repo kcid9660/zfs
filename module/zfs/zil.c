@@ -4746,6 +4746,12 @@ zil_replay_error(zilog_t *zilog, const lr_t *lr, int error)
 	return (error);
 }
 
+/*
+ * For tests: sync a TXG after each replayed record, so that every partial
+ * replay reaches the disk.  Slows replay down to a TXG per record.
+ */
+static int zil_replay_sync_per_record = 0;
+
 static int
 zil_replay_log_record(zilog_t *zilog, const lr_t *lr, void *zra,
     uint64_t claim_txg)
@@ -4826,6 +4832,8 @@ zil_replay_log_record(zilog_t *zilog, const lr_t *lr, void *zra,
 		if (error != 0)
 			return (zil_replay_error(zilog, lr, error));
 	}
+	if (zil_replay_sync_per_record)
+		txg_wait_synced(spa_get_dsl(zilog->zl_spa), 0);
 	return (0);
 }
 
@@ -4958,3 +4966,6 @@ ZFS_MODULE_PARAM(zfs, zfs_, immediate_write_sz, UINT, ZMOD_RW,
 
 ZFS_MODULE_PARAM(zfs_zil, zil_, special_is_slog, INT, ZMOD_RW,
 	"Treat special vdevs as SLOG");
+
+ZFS_MODULE_PARAM(zfs_zil, zil_, replay_sync_per_record, INT, ZMOD_RW,
+	"Sync a TXG after each replayed ZIL record (for testing)");
