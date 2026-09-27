@@ -83,6 +83,30 @@ nobase_dist_datadir_zfs_tests_tests_SCRIPTS += \
 	functional/tmpfile/cleanup.ksh \
 	functional/tmpfile/setup.ksh \
 	functional/tmpfile/tmpfile_004_pos.ksh \
+	functional/tmpfile_crash/cleanup.ksh \
+	functional/tmpfile_crash/setup.ksh \
+	functional/tmpfile_crash/tmpfile_crash.kshlib \
+	functional/tmpfile_crash/tmpfile_crash_acl.ksh \
+	functional/tmpfile_crash/tmpfile_crash_clone.ksh \
+	functional/tmpfile_crash/tmpfile_crash_clonemix.ksh \
+	functional/tmpfile_crash/tmpfile_crash_clonerm.ksh \
+	functional/tmpfile_crash/tmpfile_crash_dirsync.ksh \
+	functional/tmpfile_crash/tmpfile_crash_filesync.ksh \
+	functional/tmpfile_crash/tmpfile_crash_hole.ksh \
+	functional/tmpfile_crash/tmpfile_crash_meta.ksh \
+	functional/tmpfile_crash/tmpfile_crash_multi.ksh \
+	functional/tmpfile_crash/tmpfile_crash_nosync.ksh \
+	functional/tmpfile_crash/tmpfile_crash_osync.ksh \
+	functional/tmpfile_crash/tmpfile_crash_relink.ksh \
+	functional/tmpfile_crash/tmpfile_crash_remove.ksh \
+	functional/tmpfile_crash/tmpfile_crash_rename.ksh \
+	functional/tmpfile_crash/tmpfile_crash_reuse.ksh \
+	functional/tmpfile_crash/tmpfile_crash_slog.ksh \
+	functional/tmpfile_crash/tmpfile_crash_small.ksh \
+	functional/tmpfile_crash/tmpfile_crash_sparse.ksh \
+	functional/tmpfile_crash/tmpfile_crash_sparsemix.ksh \
+	functional/tmpfile_crash/tmpfile_crash_syncalways.ksh \
+	functional/tmpfile_crash/tmpfile_crash_unlinked.ksh \
 	functional/tmpfile_dmlog/cleanup.ksh \
 	functional/tmpfile_dmlog/setup.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog.kshlib \
@@ -110,6 +134,7 @@ nobase_dist_datadir_zfs_tests_tests_SCRIPTS += \
 	functional/tmpfile_dmlog/tmpfile_dmlog_encrypted_clonemix.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_encrypted_meta.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_encrypted_sparsemix.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_fallback.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_filesync.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_hole.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_hugesparse.ksh \
@@ -119,6 +144,7 @@ nobase_dist_datadir_zfs_tests_tests_SCRIPTS += \
 	functional/tmpfile_dmlog/tmpfile_dmlog_multi.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_nodump.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_nosync.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_noziltmpfile.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_osync.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_projid.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_racegrow.ksh \
@@ -127,6 +153,17 @@ nobase_dist_datadir_zfs_tests_tests_SCRIPTS += \
 	functional/tmpfile_dmlog/tmpfile_dmlog_remove.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_removefast.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_rename.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_clonemix.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_clonerm.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_dense.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_encrypted_meta.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_encrypted_multi_ro.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_encrypted_reuse.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_multi.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_multi_ro.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_remove.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_reuse.ksh \
+	functional/tmpfile_dmlog/tmpfile_dmlog_replay_sparsemix.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_slog.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_small.ksh \
 	functional/tmpfile_dmlog/tmpfile_dmlog_sparse.ksh \
